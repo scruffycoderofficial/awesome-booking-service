@@ -1,0 +1,10 @@
+{
+	"require-dev" : {
+		"phpspec/phpspec" : "^6.2"
+	},
+	"autoload":{
+		"psr-0": {
+			"DigitalClosuxe\\Awesome\\Service\\": "src/"
+		}
+	}
+}

@@ -2,8 +2,8 @@
 
 namespace DigitalClosuxe\Awesome\Service\BookingService\Type;
 
-use DigitalClosuxe\Awesome\Service\BookingService\BookingService;
 use DigitalClosuxe\Awesome\Service\BookingService\Accommodation\Pricing\StandardPrice;
+use DigitalClosuxe\Awesome\Service\BookingService\BookingService;
 
 class AccommodationBooking implements BookingService
 {

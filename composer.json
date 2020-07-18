@@ -1,6 +1,7 @@
 {
 	"require-dev" : {
-		"phpspec/phpspec" : "^6.2"
+		"phpspec/phpspec" : "^6.2",
+		"friendsofphp/php-cs-fixer": "^2.16"
 	},
 	"autoload":{
 		"psr-0": {

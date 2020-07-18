@@ -2,7 +2,7 @@
 
 namespace DigitalClosuxe\Awesome\Service\BookingService\Accommodation\Line;
 
-use DigitalClosuxe\Awesome\Service\BookingService\Decorator\AccommodationBookingsService;
+use DigitalClosuxe\Awesome\Service\BookingService\Domain\AccommodationBookingsService;
 
 /**
  * An Accomodation LineItem interface that could also be refered to as ServiceFeaturedItem.

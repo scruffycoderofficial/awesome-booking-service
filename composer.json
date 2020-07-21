@@ -1,16 +1,15 @@
 {
 	"require-dev" : {
 		"phpspec/phpspec" : "^6.2",
-		"friendsofphp/php-cs-fixer": "^2.16",
-		"behat/behat": "^3.7",
-		"guzzlehttp/guzzle": "^7.0"
+		"friendsofphp/php-cs-fixer" : "^2.16",
+		"behat/behat" : "^3.7"
 	},
-	"autoload":{
-		"psr-0": {
-			"DigitalClosuxe\\Awesome\\Service\\": "src/"
+	"autoload" : {
+		"psr-0" : {
+			"DigitalClosuxe\\Awesome\\Service\\" : "src/"
 		}
 	},
-	"require": {
-		"phpunit/phpunit": "^9.2"
+	"require" : {
+		"phpunit/phpunit" : "^9.2"
 	}
 }

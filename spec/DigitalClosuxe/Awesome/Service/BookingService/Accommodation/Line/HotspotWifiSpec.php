@@ -13,7 +13,7 @@ class HotspotWifiSpec extends ObjectBehavior
     public function let(BookingService $bookingService)
     {
         $bookingService->getDescription()
-            ->willReturn('Double beddroom');
+            ->willReturn('Double bedroom');
 
         $bookingService->calculatePrice()
             ->willReturn(StandardPrice::VALUE);

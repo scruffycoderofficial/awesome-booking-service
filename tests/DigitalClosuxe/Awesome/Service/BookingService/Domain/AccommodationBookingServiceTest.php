@@ -2,6 +2,7 @@
 
 use DigitalClosuxe\Awesome\Service\BookingService\Accommodation\Line\AdditionalBed;
 use DigitalClosuxe\Awesome\Service\BookingService\Accommodation\Line\HotspotWifi;
+use DigitalClosuxe\Awesome\Service\BookingService\Accommodation\Pricing\PriceList;
 use DigitalClosuxe\Awesome\Service\BookingService\Accommodation\Pricing\StandardPrice;
 use DigitalClosuxe\Awesome\Service\BookingService\Type\AccommodationBooking;
 use PHPUnit\Framework\TestCase;
@@ -11,7 +12,7 @@ use PHPUnit\Framework\TestCase;
  *
  * @author luyandasiko
  */
-class AccommodationBookingsServiceTest extends TestCase
+class AccommodationBookingServiceTest extends TestCase
 {
     private $accommodationBooking;
 
@@ -30,7 +31,7 @@ class AccommodationBookingsServiceTest extends TestCase
     {
         $this->accommodationBooking->expects($this->atLeastOnce())
             ->method('calculatePrice')
-            ->willReturn(40);
+            ->willReturn(StandardPrice::VALUE);
 
         $this->assertSame(StandardPrice::VALUE, $this->accommodationBooking->calculatePrice());
     }
@@ -54,7 +55,7 @@ class AccommodationBookingsServiceTest extends TestCase
     {
         $this->accommodationBooking->expects($this->atLeastOnce())
             ->method('calculatePrice')
-            ->willReturn(40);
+            ->willReturn(StandardPrice::VALUE);
 
         $accommodationWithWifiHotspot = $this->getMockBuilder(HotspotWifi::class)
             ->setMethods(['__construct', 'calculatePrice'])
@@ -64,9 +65,31 @@ class AccommodationBookingsServiceTest extends TestCase
 
         $accommodationWithWifiHotspot->expects($this->atLeastOnce())
             ->method('calculatePrice')
-            ->willReturn($this->accommodationBooking->calculatePrice() + 2);
+            ->willReturn($this->accommodationBooking->calculatePrice() + PriceList::WIFI_HOTSPOT);
 
         $this->assertSame(42, $accommodationWithWifiHotspot->calculatePrice());
+    }
+
+    /**
+     * @covers \AccommodationBooking::calculatePrice
+     */
+    public function test_can_calculate_price_for_basic_accommodation_booking_with_extra_bed()
+    {
+        $this->accommodationBooking->expects($this->atLeastOnce())
+        ->method('calculatePrice')
+        ->willReturn(StandardPrice::VALUE);
+
+        $accommodationWithWifiExtraBed = $this->getMockBuilder(AdditionalBed::class)
+        ->setMethods(['__construct', 'calculatePrice'])
+        ->setConstructorArgs([$this->accommodationBooking])
+        ->disableOriginalConstructor()
+        ->getMock();
+
+        $accommodationWithWifiExtraBed->expects($this->atLeastOnce())
+        ->method('calculatePrice')
+        ->willReturn($this->accommodationBooking->calculatePrice() + PriceList::EXTRA_BED);
+
+        $this->assertSame(70, $accommodationWithWifiExtraBed->calculatePrice());
     }
 
     /**
@@ -102,7 +125,7 @@ class AccommodationBookingsServiceTest extends TestCase
     {
         $this->accommodationBooking->expects($this->atLeastOnce())
             ->method('calculatePrice')
-            ->willReturn(40);
+            ->willReturn(StandardPrice::VALUE);
 
         $accommodationWithWifiHotspot = $this->getMockBuilder(HotspotWifi::class)
             ->setMethods(['__construct', 'calculatePrice'])
@@ -112,7 +135,7 @@ class AccommodationBookingsServiceTest extends TestCase
 
         $accommodationWithWifiHotspot->expects($this->atLeastOnce())
             ->method('calculatePrice')
-            ->willReturn($this->accommodationBooking->calculatePrice() + 2);
+            ->willReturn($this->accommodationBooking->calculatePrice() + PriceList::WIFI_HOTSPOT);
 
         $accommodationWithAdditionalBed = $this->getMockBuilder(AdditionalBed::class)
             ->setMethods(['__construct', 'calculatePrice'])
@@ -122,7 +145,7 @@ class AccommodationBookingsServiceTest extends TestCase
 
         $accommodationWithAdditionalBed->expects($this->atLeastOnce())
             ->method('calculatePrice')
-            ->willReturn($accommodationWithWifiHotspot->calculatePrice() + 30);
+            ->willReturn($accommodationWithWifiHotspot->calculatePrice() + PriceList::EXTRA_BED);
 
         $this->assertSame(72, $accommodationWithAdditionalBed->calculatePrice());
     }

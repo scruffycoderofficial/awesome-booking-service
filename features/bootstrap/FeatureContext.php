@@ -1,9 +1,8 @@
 <?php
 
-use Behat\Behat\Tester\Exception\PendingException;
 use Behat\Behat\Context\Context;
-use Behat\Gherkin\Node\PyStringNode;
-use Behat\Gherkin\Node\TableNode;
+use DigitalClosuxe\Awesome\Service\BookingService\Accommodation\Pricing\PriceList;
+use DigitalClosuxe\Awesome\Service\BookingService\Accommodation\Pricing\StandardPrice;
 use PHPUnit\Framework\TestCase as AcceptanceFeatureContext;
 
 /**
@@ -15,7 +14,7 @@ class FeatureContext extends AcceptanceFeatureContext implements Context
      * @var unknown
      */
     private $accommodationBooking;
-    
+
     /**
      * Initializes context.
      *
@@ -26,12 +25,12 @@ class FeatureContext extends AcceptanceFeatureContext implements Context
     public function __construct()
     {
         $this->accommodationBooking = $this->getMockBuilder(AccommodationBooking::class)
-            ->setMethods([ 'calculatePrice' ])
+            ->setMethods(['calculatePrice'])
             ->getMock();
-        
+
         $this->accommodationBooking->expects($this->atLeastOnce())
             ->method('calculatePrice')
-            ->willReturn(40);
+            ->willReturn(StandardPrice::VALUE);
     }
 
     /**
@@ -46,7 +45,7 @@ class FeatureContext extends AcceptanceFeatureContext implements Context
      * @Given I check the Booking Service price
      */
     public function iCheckTheBookingServicePrice()
-    {   
+    {
         return empty($this->accommodationBooking->calculatePrice());
     }
 
@@ -68,12 +67,12 @@ class FeatureContext extends AcceptanceFeatureContext implements Context
             ->setConstructorArgs([$this->accommodationBooking])
             ->disableOriginalConstructor()
             ->getMock();
-        
+
         $accommodationWithWifiHotspot->expects($this->atLeastOnce())
             ->method('calculatePrice')
-            ->willReturn($this->accommodationBooking->calculatePrice() + 2);
-        
-            $this->accommodationBooking = $accommodationWithWifiHotspot;
+            ->willReturn($this->accommodationBooking->calculatePrice() + PriceList::WIFI_HOTSPOT);
+
+        $this->accommodationBooking = $accommodationWithWifiHotspot;
     }
 
     /**
@@ -86,23 +85,22 @@ class FeatureContext extends AcceptanceFeatureContext implements Context
             ->setConstructorArgs([$this->accommodationBooking])
             ->disableOriginalConstructor()
             ->getMock();
-        
+
         $accommodationWithWifiHotspot->expects($this->atLeastOnce())
             ->method('calculatePrice')
-            ->willReturn($this->accommodationBooking->calculatePrice() + 2);
-        
-        
+            ->willReturn($this->accommodationBooking->calculatePrice() + PriceList::WIFI_HOTSPOT);
+
         $accommodationWithExtraBed = $this->getMockBuilder(AdditionalBed::class)
             ->setMethods(['__construct', 'calculatePrice'])
             ->setConstructorArgs([$accommodationWithWifiHotspot])
             ->disableOriginalConstructor()
             ->getMock();
-        
-            $accommodationWithExtraBed->expects($this->atLeastOnce())
+
+        $accommodationWithExtraBed->expects($this->atLeastOnce())
             ->method('calculatePrice')
-            ->willReturn($accommodationWithWifiHotspot->calculatePrice() + 30);
-        
-            $this->accommodationBooking = $accommodationWithExtraBed;
+            ->willReturn($accommodationWithWifiHotspot->calculatePrice() + PriceList::EXTRA_BED);
+
+        $this->accommodationBooking = $accommodationWithExtraBed;
     }
 
     /**
@@ -115,11 +113,11 @@ class FeatureContext extends AcceptanceFeatureContext implements Context
         ->setConstructorArgs([$this->accommodationBooking])
         ->disableOriginalConstructor()
         ->getMock();
-        
+
         $accommodationWithAdditionalBed->expects($this->atLeastOnce())
         ->method('calculatePrice')
-        ->willReturn($this->accommodationBooking->calculatePrice() + 30);
-        
+        ->willReturn($this->accommodationBooking->calculatePrice() + PriceList::EXTRA_BED);
+
         $this->accommodationBooking = $accommodationWithAdditionalBed;
     }
 }

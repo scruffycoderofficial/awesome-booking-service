@@ -2,22 +2,16 @@
 
 namespace DigitalClosuxe\Awesome\Service\BookingService\Accommodation\Line;
 
-use DigitalClosuxe\Awesome\Service\BookingService\Domain\AccommodationBookingsService;
+use DigitalClosuxe\Awesome\Service\BookingService\Accommodation\Pricing\PriceList;
+use DigitalClosuxe\Awesome\Service\BookingService\Domain\AccommodationBookingService;
 
 /**
  * An Accomodation LineItem interface that could also be refered to as ServiceFeaturedItem.
  *
  * @author luyandasiko
  */
-class AdditionalBed extends AccommodationBookingsService
+class AdditionalBed extends AccommodationBookingService
 {
-    /**
-     * Additional charge for this Line Item.
-     *
-     * @var int
-     */
-    private const ADDITIONAL_AMOUNT = 30;
-
     /** [{@inheritdoc}] */
     public function getDescription()
     {
@@ -27,6 +21,6 @@ class AdditionalBed extends AccommodationBookingsService
     /** [{@inheritdoc}] */
     public function calculatePrice()
     {
-        return $this->bookingService->calculatePrice() + self::ADDITIONAL_AMOUNT;
+        return $this->bookingService->calculatePrice() + PriceList::EXTRA_BED;
     }
 }

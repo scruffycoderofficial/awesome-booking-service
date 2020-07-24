@@ -28,7 +28,7 @@ class AdditionalBedSpec extends ObjectBehavior
 
     public function it_is_a_booking_service()
     {
-        $this->beAnInstanceOf(BookingService::class);
+        $this->shouldImplement(BookingService::class);
     }
 
     public function it_has_an_accumulated_price()

@@ -2,4 +2,22 @@
 .php_cs.cache
 .idea
 
+geckodriver-*.log
+log-*-*.html
+report-*-*.html
+output-*-*.xml
+log.html
+output.xml
+report.html
+selenium-screenshot-*.png
+
+automated/tests/geckodriver-*.log
+automated/tests/log-*-*.html
+automated/tests/report-*-*.html
+automated/tests/output-*-*.xml
+automated/tests/log.html
+automated/tests/output.xml
+automated/tests/report.html
+automated/tests/selenium-screenshot-*.png
+
 vendor/

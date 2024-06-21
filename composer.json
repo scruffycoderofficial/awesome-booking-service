@@ -1,15 +1,14 @@
 {
+	"version": "0.1.0",
 	"require-dev" : {
 		"phpspec/phpspec" : "^6.2",
 		"friendsofphp/php-cs-fixer" : "^2.16",
-		"behat/behat" : "^3.7"
+		"behat/behat" : "^3.7",
+		"phpunit/phpunit" : "^9.2"
 	},
 	"autoload" : {
-		"psr-0" : {
+		"psr-4" : {
 			"DigitalClosuxe\\Awesome\\Service\\" : "src/"
 		}
-	},
-	"require" : {
-		"phpunit/phpunit" : "^9.2"
 	}
 }

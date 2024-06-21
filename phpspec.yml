@@ -1,1 +1,6 @@
 formatter.name: pretty
+
+suites:
+    digital_closuxe_awesome_suite:
+        namespace: DigitalClosuxe\Awesome\Service
+        psr4_prefix: DigitalClosuxe\Awesome\Service

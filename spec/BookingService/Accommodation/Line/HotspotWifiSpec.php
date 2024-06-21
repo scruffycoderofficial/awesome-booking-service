@@ -28,7 +28,7 @@ class HotspotWifiSpec extends ObjectBehavior
 
     public function it_is_a_booking_service()
     {
-        $this->beAnInstanceOf(BookingService::class);
+        $this->shouldImplement(BookingService::class);
     }
 
     public function it_has_an_accumulated_price()
@@ -48,9 +48,8 @@ class HotspotWifiSpec extends ObjectBehavior
                 if ((int) $subject < (int) StandardPrice::VALUE) {
                     throw new FailureException(sprintf('the return value "%s" is not more than "%s"', $subject, $expected));
                 }
-
                 return true;
             },
-            ];
+        ];
     }
 }
